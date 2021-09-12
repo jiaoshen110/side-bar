@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useCallback } from "react";
-import { useSpring, animated } from "react-spring";
 import styled from "styled-components";
 import { MdClose } from "react-icons/md";
 
@@ -66,13 +65,6 @@ const CloseModalButton = styled(MdClose)`
 
 export const Modal = ({ showModal, setShowModal }) => {
   const modalRef = useRef();
-  const animation = useSpring({
-    config: {
-      duration: 250,
-    },
-    opacity: showModal ? 1 : 0,
-    transform: showModal ? `translateY(0%)` : `tanslateY(-100%)`,
-  });
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
       setShowModal(false);
@@ -96,20 +88,18 @@ export const Modal = ({ showModal, setShowModal }) => {
     <>
       {showModal ? (
         <Background ref={modalRef} onClick={closeModal}>
-          <animated.div style={animation}>
-            <ModalWrapper showModal={showModal}>
-              <ModalImg />
-              <ModalContent>
-                <h1>Are you ready</h1>
-                <p>Get exclusive access</p>
-                <button>Join now</button>
-                <CloseModalButton
-                  aria-label="close modal"
-                  onClick={() => setShowModal(!showModal)}
-                />
-              </ModalContent>
-            </ModalWrapper>
-          </animated.div>
+          <ModalWrapper showModal={showModal}>
+            <ModalImg />
+            <ModalContent>
+              <h1>Are you ready</h1>
+              <p>Get exclusive access</p>
+              <button>Join now</button>
+              <CloseModalButton
+                aria-label="close modal"
+                onClick={() => setShowModal(!showModal)}
+              />
+            </ModalContent>
+          </ModalWrapper>
         </Background>
       ) : null}
     </>
